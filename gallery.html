@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图集欣赏 - 葬送的芙莉莲</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式和CSS变量 */
+        :root {
+            --primary-color: #4a90e2; /* 天蓝色 */
+            --secondary-color: #b39ddb; /* 浅紫色 */
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 5px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 移动端导航菜单 */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            text-align: center;
+            padding: 60px 0 30px;
+            background: linear-gradient(to right, var(--light-gray), var(--white));
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* 图集筛选选项卡 */
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover {
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        /* 图集网格布局 */
+        .gallery-section {
+            padding: 20px 0 80px;
+            background-color: var(--white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            height: 250px;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--white);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .gallery-category {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* 灯箱样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 5px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .lightbox-caption {
+            color: var(--white);
+            text-align: center;
+            padding: 15px 0;
+            font-size: 1.1rem;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--white);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .lightbox-close:hover {
+            color: var(--secondary-color);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0 20px;
+        }
+        
+        .lightbox-nav:hover {
+            color: var(--secondary-color);
+        }
+        
+        .lightbox-prev {
+            left: 10px;
+        }
+        
+        .lightbox-next {
+            right: 10px;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        /* 图片懒加载 */
+        img.lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        img.lazy-load.loaded {
+            opacity: 1;
+        }
+        /* 响应式设计 */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+            .page-title {
+                font-size: 3rem;
+            }
+            .gallery-item {
+                height: 280px;
+            }
+        }
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+            .page-title {
+                font-size:  2.6rem;
+            }
+            .gallery-item {
+                height: 260px;
+            }
+        }
+        
+        @media (min-width:768px) and (max-width: 991px) {
+            .container {
+                max-width: 720px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            .page-title {
+                font-size: 2.4rem;
+            }
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            .gallery-filter {
+                margin: 30px 0;
+            }
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.95rem;
+            }
+            .lightbox-nav {
+                font-size: 2.5rem;
+            }
+        }
+        @media (max-width: 767px) and (min-width: 567px) {
+            .container {
+                max-width: 540px;
+                padding: 0 15px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                z-index: 100;
+            }
+            
+            .nav-links li {
+                margin: 12px 0;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .page-subtitle {
+                font-size: 1.05rem;
+                padding: 0 10px;
+            }
+            .page-header {
+                padding: 50px 0 25px;
+            }
+            .gallery-section {
+                padding: 10px 0 60px;
+            }
+            .gallery-item {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+            .gallery-category {
+                font-size: 0.75rem;
+                padding: 2px 8px;
+            }
+            .gallery-title {
+                font-size: 1rem;
+            }
+            .gallery-filter {
+                margin: 25px 0;
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 7px 18px;
+                font-size: 0.9rem;
+            }
+            .lightbox-nav {
+                font-size: 2.2rem;
+                padding: 0 15px;
+            }
+            .lightbox-close {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 566px) {
+            .container {
+                padding: 0 12px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                z-index: 100;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .logo {
+                font-size: 15.rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+                padding: 0 5px;
+            }
+            .page-header {
+                padding: 40px 0 20px;
+            }
+            .gallery-section {
+                padding: 0 0 50px;
+            }
+            .gallery-item {
+                height: 250px;
+            }
+            .gallery-caption {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            .gallery-category {
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+            .gallery-title {
+                font-size: 0.95rem;
+            }
+            .gallery-filter {
+                margin: 20px 0;
+                gap: 5px;
+            }
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+                border-width: 1px;
+            }
+            
+            .lightbox-nav {
+                font-size: 1.8rem;
+                padding: 0 10px;
+            }
+            .lightbox-close {
+                font-size: 2rem;
+                top: 15px;
+                right: 15px;
+            }
+            .lightbox-caption {
+                font-size: 0.95rem;
+                padding: 10px 0;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap:30px;
+            }
+            .footer-column{
+                min-width: 100%;
+            }
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sparkles"></i>
+                    葬送的芙莉莲
+                </a>
+                
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="characters.html">角色</a></li>
+                    <li><a href="gallery.html" class="active">图集</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题 -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">图集欣赏</h1>
+            <p class="page-subtitle">收集了《葬送的芙莉莲》的官方插画、动画截图以及精选同人作品，点击图片可以查看大图，使用左右箭头可以在灯箱中浏览所有图片。</p>
+        </div>
+    </section>
+
+    <!-- 图集筛选选项卡 -->
+    <div class="container">
+        <div class="gallery-filter">
+            <button class="filter-btn active" data-filter="all">全部图片</button>
+            <button class="filter-btn" data-filter="official">官方图</button>
+            <button class="filter-btn" data-filter="screenshot">动画截图</button>
+            <button class="filter-btn" data-filter="fanart">同人图</button>
+        </div>
+    </div>
+
+    <!-- 图集网格 -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- 官方图 -->
+                <div class="gallery-item" data-category="official">
+                    <img src="images/img56.jpg" alt="官方视觉图 - 芙莉莲与辛美尔" class="lazy-load" data-src="images/img56.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">官方图</span>
+                        <div class="gallery-title">官方视觉图 - 芙莉莲与辛美尔</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="official">
+                    <img src="images/img57.jpg" alt="官方海报 - 魔法使的旅程" class="lazy-load" data-src="images/img57.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">官方图</span>
+                        <div class="gallery-title">官方海报 - 魔法使的旅程</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="official">
+                    <img src="images/img40.jpg" alt="官方海报 - 魔法使成员" class="lazy-load" data-src="images/img40.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">官方图</span>
+                        <div class="gallery-title">官方海报 - 魔法使成员</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="official">
+                    <img src="images/img50.jpg" alt="官方海报 - 魔法使成员" class="lazy-load" data-src="images/img50.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">官方图</span>
+                        <div class="gallery-title">官方海报 - 魔法使成员</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="official">
+                    <img src="images/img62.jpg" alt="官方角色设定 - 芙莉莲" class="lazy-load" data-src="images/img62.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">官方图</span>
+                        <div class="gallery-title">官方角色设定 - 芙莉莲</div>
+                    </div>
+                </div>
+                
+                <!-- 动画截图 -->
+                <div class="gallery-item" data-category="screenshot">
+                    <img src="images/img52.jpg" alt="动画截图 - 星空下的对话" class="lazy-load" data-src="images/img52.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">动画截图</span>
+                        <div class="gallery-title">动画截图 - 星空下的对话</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="screenshot">
+                    <img src="images/img11.jpg" alt="动画截图 - 魔法战斗场面" class="lazy-load" data-src="images/img11.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">动画截图</span>
+                        <div class="gallery-title">动画截图 - 魔法战斗场面</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="screenshot">
+                    <img src="images/img25.jpg" alt="动画截图 - 芙莉莲施放魔法" class="lazy-load" data-src="images/img25.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">动画截图</span>
+                        <div class="gallery-title">动画截图 - 芙莉莲施放魔法</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="screenshot">
+                    <img src="images/img18.jpg" alt="动画截图 - 勇者队伍集结" class="lazy-load" data-src="images/img18.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">动画截图</span>
+                        <div class="gallery-title">动画截图 - 勇者队伍集结</div>
+                    </div>
+                </div>
+                
+                <!-- 同人图 -->
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img58.jpg" alt="同人图 - Q版芙莉莲" class="lazy-load" data-src="images/img58.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:mochi_punin) - Q版芙莉莲</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img53.jpg" alt="同人图 - 芙莉莲与菲伦日常" class="lazy-load" data-src="images/img53.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:Arkilide) - 芙莉莲与菲伦日常</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img59.jpg" alt="同人图 - 现代风格芙莉莲" class="lazy-load" data-src="images/img59.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:ryosuketarou) - 现代风格芙莉莲</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img60.jpg" alt="同人图 - 芙莉莲与辛美尔重逢" class="lazy-load" data-src="images/img60.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:hano) - 芙莉莲与辛美尔重逢</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img42.jpg" alt="同人图 - 全员欢乐日常" class="lazy-load" data-src="images/img42.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:ryosuketarou) - 全员欢乐日常</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fanart">
+                    <img src="images/img61.jpg" alt="同人图 - 花田魔法场景" class="lazy-load" data-src="images/img61.jpg">
+                    <div class="gallery-caption">
+                        <span class="gallery-category">同人图</span>
+                        <div class="gallery-title">同人图(x:beanynne) - 花田魔法场景</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightbox-close">&times;</div>
+        <div class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</div>
+        <div class="lightbox-nav lightbox-next" id="lightbox-next">&#10095;</div>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- 关于本站 -->
+                <div class="footer-column">
+                    <h3>关于本站</h3>
+                    <p>本站为《葬送的芙莉莲》粉丝非官方网站，致力于提供最新、最全的动漫资讯、角色介绍、精美图集等内容，欢迎所有喜欢《葬送的芙莉莲》的朋友们。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="characters.html">角色介绍</a></li>
+                        <li><a href="gallery.html">精美图集</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 毕业设计信息 -->
+                <div class="footer-column">
+                    <h3>毕业设计信息</h3>
+                    <p><strong>专业：</strong>计算机网络技术</p>
+                    <p><strong>设计者：</strong>喻德霞</p>
+                    <p><strong>指导老师：</strong>张坤</p>
+                    <p><strong>完成时间：</strong>2025年12月</p>
+                </div>
+            </div>
+            
+            <!-- 版权信息 -->
+            <div class="copyright">
+                <p>&copy; 2025 《葬送的芙莉莲》动漫介绍网站 | 本网站为毕业设计作品，仅供学习交流使用 | 所有动漫内容版权归原作者所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 图片懒加载
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.getAttribute('data-src');
+                            img.classList.add('loaded');
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '100px 0px', // 提前100px开始加载
+                    threshold: 0.01
+                });
+                
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // 不支持IntersectionObserver的备用方案
+                lazyImages.forEach(img => {
+                    img.src = img.getAttribute('data-src');
+                    img.classList.add('loaded');
+                    img.removeAttribute('data-src');
+                });
+            }
+        }
+        // 移动端导航菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        
+        // 图集筛选功能
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新活动按钮
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                // 筛选图集项目
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // 灯箱功能
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        
+        let currentImageIndex = 0;
+        const allGalleryImages = Array.from(galleryItems);
+        
+        // 打开灯箱
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+        
+        // 更新灯箱内容
+        function updateLightbox() {
+            const currentItem = allGalleryImages[currentImageIndex];
+            const imgSrc = currentItem.querySelector('img').getAttribute('src');
+            const imgAlt = currentItem.querySelector('img').getAttribute('alt');
+            const caption = currentItem.querySelector('.gallery-title').textContent;
+            const category = currentItem.querySelector('.gallery-category').textContent;
+            // 预加载下一张图片
+            const nextIndex = (currentImageIndex + 1) % allGalleryImages.length;
+            const nextItem = allGalleryImages[nextIndex];
+            const nextImgSrc = nextItem.querySelector('img').getAttribute('src');
+            const nextImg = new Image();
+            nextImg.src = nextImgSrc;
+            lightboxImg.setAttribute('src', imgSrc);
+            lightboxImg.setAttribute('alt', imgAlt);
+            lightboxCaption.textContent = `${category} - ${caption}`;
+        }
+        
+        // 关闭灯箱
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 上一张图片
+        function prevImage() {
+            currentImageIndex--;
+            if (currentImageIndex < 0) {
+                currentImageIndex = allGalleryImages.length - 1;
+            }
+            updateLightbox();
+        }
+        
+        // 下一张图片
+        function nextImage() {
+            currentImageIndex++;
+            if (currentImageIndex >= allGalleryImages.length) {
+                currentImageIndex = 0;
+            }
+            updateLightbox();
+        }
+        
+        // 为每个图集项添加点击事件
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                openLightbox(index);
+            });
+        });
+        
+        // 灯箱控制事件
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', prevImage);
+        lightboxNext.addEventListener('click', nextImage);
+        
+        // 键盘控制
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+        
+        // 点击灯箱背景关闭
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                // 如果是导航链接，关闭移动端菜单
+                if (this.getAttribute('href') !== '#') {
+                    document.getElementById('nav-links').classList.remove('active');
+                }
+                
+                const href = this.getAttribute('href');
+                
+                // 如果href是#，表示当前页面，不滚动
+                if (href === '#') {
+                    e.preventDefault();
+                    return;
+                }
+                
+                // 检查是否是有效的id选择器
+                if (href.startsWith('#') && href.length > 1) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+         // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            lazyLoadImages();
+        });
+    </script>
+</body>
+</html>

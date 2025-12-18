@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>葬送的芙莉莲 - 动漫介绍</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #b39ddb;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 5px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        /* 移动端导航菜单 */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        /* 幻灯片 */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: opacity 1s ease;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--white);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* 动漫介绍 */
+        .intro-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .intro-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .intro-text h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .intro-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .intro-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .intro-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .intro-image img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        /* 图片懒加载样式 */
+        img.lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        img.lazy-load.loaded {
+            opacity: 1;
+        }
+        /* 响应式 */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            .slideshow-container {
+                max-width: 1200px;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .intro-text h3 {
+                font-size: 2rem;
+            }
+            .slide {
+                height: 550px;
+            }
+        }
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            .slideshow-container {
+                max-width: 900px;
+            }
+            .section-title {
+                font-size: 2.3rem;
+            }
+            .intro-text h3 {
+                font-size: 1.9rem;
+            }
+            .slide {
+                height: 450px;
+            }
+            .intro-content {
+                gap: 35px;
+            }
+        }
+        @media (max-width: 991px) and (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            .slideshow-container {
+                max-width: 700px;
+            }
+            .section-title {
+                font-size: 2.1rem;
+            }
+            .intro-text h3 {
+                font-size: 1.7rem;
+            }
+            .slide {
+                height: 400px;
+            }
+            .slide-caption {
+                font-size: 1.1rem;
+                padding: 8px;
+            }
+            .intro-content {
+                gap: 30px;
+            }
+            .intro-text p {
+                font-size: 1.05rem;
+            }
+            .intro-section {
+                padding: 50px 0;
+            }
+        }
+        @media (max-width: 767px) and (min-width: 567px) {
+            .container {
+                max-width: 540px;
+                padding: 0 15px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links li {
+                margin: 12px 0;
+            }
+            .slideshow-container {
+                max-width: 500px;
+                margin: 20px auto;
+            }
+            .slide {
+                height: 300px;
+            }
+            .slide-caption {
+                font-size: 1rem;
+                padding: 8px;
+                bottom: 15px;
+            }
+            .section-title {
+                font-size: 1.9rem;
+                margin-bottom: 30px;
+            }
+            .intro-text h3 {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+            .intro-text p {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            .intro-content {
+                gap: 25px;
+            }
+            .intro-section {
+                padding: 40px 0;
+            }
+            .intro-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 566px) {
+            .container {
+                padding: 0 12px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .slideshow-container {
+                max-width: 100%;
+                margin: 15px auto;
+                border-radius: 8px;
+            }
+            .slide {
+                height: 250px;
+            }
+            .slide-caption {
+                font-size: 0.9rem;
+                padding: 6px;
+                bottom: 10px;
+            }
+            .section-title {
+                font-size: 1.7rem;
+                margin-bottom: 25px;
+                padding-bottom: 12px;
+            }
+            .section-title::after {
+                width: 60px;
+                height: 2px;
+            }
+            .intro-text h3 {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+            .intro-text p {
+                font-size: 0.95rem;
+                margin-bottom: 12px;
+                line-height: 1.5;
+            }
+            .intro-content {
+                gap: 20px;
+                flex-direction: column;
+            }
+            .intro-text, .intro-image {
+                min-width: 100%;
+            }
+            .intro-image {
+                order: -1; /* 图片在上方 */
+            }
+            .intro-section {
+                padding: 30px 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+             .footer-column {
+                min-width: 100%;
+            }
+            .footer-column h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            .footer-links a {
+                font-size: 0.9rem;
+            }
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sparkles"></i>
+                    葬送的芙莉莲
+                </a>
+                
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="characters.html">角色</a></li>
+                    <li><a href="gallery.html">图集</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="slideshow-container" id="home">
+            <img src="images/img29.jpg" alt="葬送的芙莉莲场景1" class="slide active lazy-load" data-src="images/img29.jpg">
+            <img src="images/img9.jpg" alt="葬送的芙莉莲场景2" class="slide lazy-load" data-src="images/img9.jpg">
+            <img src="images/img12.jpg" alt="葬送的芙莉莲场景3" class="slide lazy-load" data-src="images/img12.jpg">
+            <div class="slide-caption">《葬送的芙莉莲》 - 一部关于时间与记忆的奇幻之旅</div>
+        </section>
+
+        <section class="intro-section" id="intro">
+            <div class="container">
+                <h2 class="section-title">动漫介绍</h2>
+                <div class="intro-content">
+                    <div class="intro-text">
+                        <h3>《葬送的芙莉莲》</h3>
+                        <p>《葬送的芙莉莲》是山田钟人原作、阿部司作画的日本漫画作品，于2020年4月28日起在《周刊少年Sunday》上连载。截至2023年6月，单行本累计发行量已突破1000万册。</p>
+                        <p>故事讲述了精灵魔法使芙莉莲与勇者辛美尔等人一起打倒魔王后，约定再次相见，但时光飞逝，50年后重逢时，辛美尔已老去。芙莉莲对人类的生命短暂感到震撼，于是决定重新学习人类，开始一段新的旅程。</p>
+                        <p>作品以独特的视角探讨了时间、记忆与生命的意义，描绘了芙莉莲在漫长岁月中对人类情感的理解过程，被誉为"一部让人思考生命意义"的奇幻作品。</p>
+                        <p>2023年，《葬送的芙莉莲》荣获第14届漫画大奖和第25届手冢治虫文化奖新生奖，并于同年9月宣布动画化，由Madhouse制作，于2023年秋季播出。</p>
+                    </div>
+                    <div class="intro-image">
+                        <img src="images/img10.jpg" alt="葬送的芙莉莲角色" class="lazy-load" data-src="images/img10.jpg">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于本站</h3>
+                    <p>本站为《葬送的芙莉莲》粉丝非官方网站，致力于提供最新、最全的动漫资讯、角色介绍、精美图集等内容，欢迎所有喜欢《葬送的芙莉莲》的朋友们。</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="characters.html">角色介绍</a></li>
+                        <li><a href="gallery.html">精美图集</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>毕业设计信息</h3>
+                    <p><strong>专业：</strong>计算机网络技术</p>
+                    <p><strong>设计者：</strong>喻德霞</p>
+                    <p><strong>指导老师：</strong>张坤</p>
+                    <p><strong>完成时间：</strong>2025年12月</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 《葬送的芙莉莲》动漫介绍网站 | 本网站为毕业设计作品，仅供学习交流使用 | 所有动漫内容版权归原作者所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+         // 图片懒加载功能
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.getAttribute('data-src');
+                            img.classList.add('loaded');
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '100px 0px', // 提前100px开始加载
+                    threshold: 0.1
+                });
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // 不支持IntersectionObserver的备用方案
+                lazyImages.forEach(img => {
+                    img.src = img.getAttribute('data-src');
+                    img.classList.add('loaded');
+                    img.removeAttribute('data-src');
+                });
+            }
+        }
+        // 移动端导航菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        // 幻灯片功能
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlides() {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            slideIndex++;
+            // 预加载下一张幻灯片
+            const nextSlideIndex = (slideIndex % slides.length);
+            const nextSlide = slides[nextSlideIndex];
+            const nextImg = nextSlide.querySelector('img');
+            if (nextImg && nextImg.hasAttribute('data-src')) {
+                nextImg.src = nextImg.getAttribute('data-src');
+                nextImg.classList.add('loaded');
+                nextImg.removeAttribute('data-src');
+            }
+            //if (slideIndex > slides.length) {
+              //  slideIndex = 1;
+            //}
+            
+            slides[slideIndex - 1].classList.add('active');
+            
+            setTimeout(showSlides, 2000);
+        }
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 立即加载第一张幻灯片
+            const firstSlideImg = slides[0].querySelector('img');
+            if (firstSlideImg && firstSlideImg.hasAttribute('data-src')) {
+                firstSlideImg.src = firstSlideImg.getAttribute('data-src');
+                firstSlideImg.classList.add('loaded');
+                firstSlideImg.removeAttribute('data-src');
+            }
+            showSlides();
+            lazyLoadImages();
+            //平滑滚动处理
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') !== '#') {
+                        document.getElementById('nav-links').classList.remove('active');
+                    }
+                    
+                    const href = this.getAttribute('href');
+                    
+                    if (href === '#') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    if (href.startsWith('#') && href.length > 1) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

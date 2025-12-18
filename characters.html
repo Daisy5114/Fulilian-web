@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色介绍 - 葬送的芙莉莲</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式和CSS变量 */
+        :root {
+            --primary-color: #4a90e2; /* 天蓝色 */
+            --secondary-color: #b39ddb; /* 浅紫色 */
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 5px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 移动端导航菜单 */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            text-align: center;
+            padding: 60px 0 30px;
+            background: linear-gradient(to right, var(--light-gray), var(--white));
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* 角色卡片布局 */
+        .characters-section {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .character-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 25px 25px 15px;
+            background-color: var(--light-gray);
+            border-bottom: 1px solid var(--medium-gray);
+            position: relative;
+        }
+        
+                /* 角色图片样式 */
+        .character-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .character-card:hover .character-image img {
+            transform: scale(1.1);
+        }
+
+        /* 调整卡片头部布局 */
+        .card-header {
+            padding: 20px 25px 15px;
+            background-color: var(--light-gray);
+            border-bottom: 1px solid var(--medium-gray);
+            position: relative;
+        }
+
+        /* 调整角色图标位置 */
+        .character-icon {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            box-shadow: var(--shadow);
+            z-index: 2;
+        }
+
+        .character-name {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .character-role {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .character-icon {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .character-traits {
+            margin-bottom: 20px;
+        }
+        
+        .trait {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+        
+       /* .trait-icon {
+            color: var(--primary-color);
+            margin-right: 10px;
+            margin-top: 3px;
+            font-size: 1.1rem;
+        }*/
+        
+        .trait-text {
+            flex: 1;
+        }
+        
+        .character-desc {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px dashed var(--medium-gray);
+        }
+        
+        .character-desc p {
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+        
+        /* 角色统计标签 */
+        .character-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stat-tag {
+            background-color: var(--light-gray);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        img.lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        img.lazy-load.loaded {
+            opacity: 1;
+
+        }
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            .characters-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+            .page-title {
+                font-size: 3rm;
+            }
+            .character-image {
+                height: 280px;
+            }
+        }
+        @media (max-width: 1191px) and (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            .characters-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
+            }
+            .page-title {
+                font-size: 2.6rem;
+            }
+            .character-image {
+                height: 260px;
+            }
+        }
+        @media (max-width: 991px) and (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            .characters-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            .page-title {
+                font-size: 2.4rem;
+            }
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            .character-image {
+                height: 240px;
+            }
+            .character-name {
+                font-size: 1.7rem;
+            }
+            .card-header,.card-body {
+                padding: 20px;
+            }
+        }
+        @media (max-width: 767px) and (min-width: 567px) {
+            .container {
+                max-width: 540px;
+                padding: 0 15px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links li {
+                margin: 12px 0;
+            }
+            
+            .characters-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+            .page-subtitle {
+                font-size: 1.05rem;
+                padding: 0 10px;
+            }
+            .page-header {
+                padding: 50px 0 25px;
+            }
+            .characters-section {
+                padding: 40px 0;
+            }
+            .character-image {
+                height: 230px;
+            }
+            .character-name {
+                font-size: 1.6rem;
+            }
+            .character-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .trait-icon {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 566px) {
+            .container {
+                padding: 0 12px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .characters-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            .page-subtitle {
+                font-size: 1rem;
+                padding: 0 5px;
+            }
+            .page-header {
+                padding: 40px 0 20px;
+            }
+            .characters-section {
+                padding: 30px 0;
+            }
+            .character-card {
+                margin-bottom: 15px;
+            }
+            .character-name {
+                font-size: 1.4rem;
+            }
+            .character-image {
+                height: 200px;
+            }
+            .character-role {
+                font-size: 0.8rem;
+                padding: 4px 12px;
+            }
+            .character-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                top: 15px;
+                right: 20px;
+            }
+            .card-header {
+                padding: 15px 20px 12px;
+            }
+            .card-body {
+                padding: 20px;
+            }
+            .trait {
+                margin-bottom: 10px;
+            }
+            /*.trait-icon {
+                font-size: 0.95rem;
+            }*/
+            .stat-tag {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .footer-column {
+                min-width: 100%;
+            }
+            .copyright {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-sparkles"></i>
+                    葬送的芙莉莲
+                </a>
+                
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="characters.html" class="active">角色</a></li>
+                    <li><a href="gallery.html">图集</a></li>
+                    <li><a href="contact.html">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题 -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">人物介绍</h1>
+            <p class="page-subtitle">《葬送的芙莉莲》中的主要角色们各有特色，从长寿的精灵魔法使到勇敢的人类战士，每个角色都在故事中扮演着不可或缺的角色。以下是主要角色的详细介绍。</p>
+        </div>
+    </section>
+
+    <!-- 角色介绍 -->
+    <section class="characters-section">
+        <div class="container">
+            <div class="characters-grid">
+                <!-- 芙莉莲 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img2.png" alt ="芙莉莲-精灵魔法使" class="lazy-load" data-src="images/img2.png">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">芙莉莲</h2>
+                        <span class="character-role">精灵魔法使</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-heart"></i></div> -->
+                                <div class="trait-text">性格慢热可爱，会赖床不了解人，感情迟钝</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-fist-raised"></i></div> -->
+                                <div class="trait-text">实力强，但行事低调小心</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-gem"></i></div> -->
+                                <div class="trait-text">爱好收集魔法，钟情宝箱</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">长寿精灵族</span>
+                            <span class="stat-tag">1000岁以上</span>
+                            <span class="stat-tag">喜欢变出花田的魔法</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>作为故事的主角，芙莉莲是一位拥有千年寿命的精灵魔法使。在与勇者辛美尔等人一起打败魔王后，她开始了一段重新理解人类情感的旅程。虽然感情迟钝且对人类的生命短暂感到困惑，但她逐渐学会了珍惜每一个相遇。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 海塔 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img35.jpg" alt="海塔 - 僧侣" class="lazy-load" data-src="images/img35.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">海塔</h2>
+                        <span class="character-role">僧侣</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-sun"></i></div> -->
+                                <div class="trait-text">阳光外向，平易近人</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-hands-helping"></i></div> -->
+                                <div class="trait-text">虔诚的僧侣，辅助系魔法</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-wine-bottle"></i></div> -->
+                                <div class="trait-text">年轻时是酒鬼和尚，生活习惯不好</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">辛美尔的发小</span>
+                            <span class="stat-tag">100岁+</span>
+                            <span class="stat-tag">圣都主教</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>海塔是勇者队伍中的僧侣，辛美尔的发小。年轻时嗜酒如命，但随着时间的推移逐渐成熟。晚年收养了孤儿菲伦，并成为圣都主教。他性格开朗，是队伍中的调和剂，也是芙莉莲理解人类情感的重要桥梁。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 菲伦 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img48.jpg" alt ="菲伦 - 人类魔法使" class="lazy-load" data-src="images/img48.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">菲伦</h2>
+                        <span class="character-role">魔法使</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-seedling"></i></div> -->
+                                <div class="trait-text">心思细腻，坚强懂事</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-user-nurse"></i></div> -->
+                                <div class="trait-text">日常要照顾芙莉莲</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-brain"></i></div> -->
+                                <div class="trait-text">战斗冷静且认真</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">芙莉莲徒弟</span>
+                            <span class="stat-tag">一级魔法使</span>
+                            <span class="stat-tag">20岁，人族，孤儿</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>菲伦是海塔收养的孤儿，后来成为芙莉莲的徒弟。她性格成熟稳重，经常照顾生活能力较差的芙莉莲。作为一级魔法使，她在战斗中表现出色，冷静而强大。与休塔尔克是斗嘴冤家，两人关系微妙。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 赞因 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img63.jpg" alt ="赞因 - 僧侣" class="lazy-load" data-src="images/img63.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">赞因</h2>
+                        <span class="character-role">僧侣</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-user-shield"></i></div> -->
+                                <div class="trait-text">可靠的成年男人（30+）</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-heartbeat"></i></div> -->
+                                <div class="trait-text">感情细腻，磕CP</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-star"></i></div> -->
+                                <div class="trait-text">僧侣的才能非常高超</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">喜欢喝酒、香烟、赌博</span>
+                            <span class="stat-tag">对菲伦休塔尔克上心</span>
+                            <span class="stat-tag">想和年长大姐姐一起旅行</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>赞因是一位经验丰富的僧侣，虽然有一些不良嗜好，但为人可靠且感情细腻。他非常关注菲伦和休塔尔克的关系发展，是两人的支持者。作为僧侣，他的能力非常高超，在队伍中起到重要的辅助作用。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 辛美尔 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img27.jpg" alt="辛美尔 - 勇者" class="lazy-load" data-src="images/img27.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">辛美尔</h2>
+                        <span class="character-role">勇者</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-shield-alt"></i></div> -->
+                                <div class="trait-text">勇敢善良，温柔体贴</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-user-check"></i></div> -->
+                                <div class="trait-text">自称帅哥的自恋狂</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-sword"></i></div> -->
+                                <div class="trait-text">剑术非常精湛，威力极大</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">克制自己的情感</span>
+                            <span class="stat-tag">避免困扰芙莉莲</span>
+                            <span class="stat-tag">16-26冒险，76看流星</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>辛美尔是击败魔王的勇者，芙莉莲的队友。他外表英俊，自称帅哥，内心善良温柔。剑术极为精湛，是队伍的核心战力。尽管对芙莉莲怀有深情，但为了不困扰长寿的精灵，他选择克制自己的感情，独自守护这份情感。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 艾泽 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img36.jpg" alt="艾泽 - 战士" class="lazy-load" data-src="images/img36.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">艾泽</h2>
+                        <span class="character-role">战士</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-comment-slash"></i></div> -->
+                                <div class="trait-text">平时沉默寡言</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-bullseye"></i></div> -->
+                                <div class="trait-text">发言往往一针见血</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-grape"></i></div> -->
+                                <div class="trait-text">喜欢很酸很酸的葡萄</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">人类最强战士</span>
+                            <span class="stat-tag">矮人族，健在</span>
+                            <span class="stat-tag">斧击威力异常巨大</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>艾泽是勇者队伍中的战士，矮人族。平时沉默寡言，但一旦发言往往切中要害。作为人类最强战士，他的斧击威力巨大。喜欢很酸的葡萄，这一特殊爱好成为他的标志性特征。在击败魔王后，他依然健在，继续着自己的生活。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 休塔尔克 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img14.jpg" alt="休塔尔克 - 战士" class="lazy-load" data-src="images/img14.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">休塔尔克</h2>
+                        <span class="character-role">战士</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-hands-helping"></i></div> -->
+                                <div class="trait-text">乐于助人，人缘好</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-flushed"></i></div> -->
+                                <div class="trait-text">虽然胆小缺乏自信，但实力很强</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-user-graduate"></i></div> -->
+                                <div class="trait-text">师傅-艾泽-额头伤疤</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">喜欢巨无霸莓果冰淇淋</span>
+                            <span class="stat-tag">20岁，比菲伦大</span>
+                            <span class="stat-tag">身体素质高</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>休塔尔克是艾泽的徒弟，额头上有着与师傅相似的伤疤。虽然性格胆小缺乏自信，但实际实力很强，身体素质极高。他乐于助人，人缘很好，与菲伦是斗嘴冤家。喜欢巨无霸莓果冰淇淋，是一个有着反差萌的角色。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 伏拉梅 -->
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="images/img64.jpg" alt="伏拉梅 - 魔法师" class="lazy-load" data-src="images/img64.jpg">
+                    </div>
+                    <div class="card-header">
+                        <h2 class="character-name">伏拉梅</h2>
+                        <span class="character-role">魔法师</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="character-traits">
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-history"></i></div> -->
+                                <div class="trait-text">生活在一千多年前</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-graduation-cap"></i></div> -->
+                                <div class="trait-text">人类魔法鼻祖</div>
+                            </div>
+                            <div class="trait">
+                                <!-- <div class="trait-icon"><i class="fas fa-bullhorn"></i></div> -->
+                                <div class="trait-text">致力于推广魔法</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-stats">
+                            <span class="stat-tag">赛丽艾的徒弟</span>
+                            <span class="stat-tag">芙莉莲的老师</span>
+                            <span class="stat-tag">非常看好芙莉莲</span>
+                        </div>
+                        
+                        <div class="character-desc">
+                            <p>伏拉梅是一千多年前的传奇魔法师，被誉为人类魔法鼻祖。她是芙莉莲的老师，赛丽艾的徒弟。致力于在人类中推广魔法，对魔法的发展做出了巨大贡献。她非常看好芙莉莲的潜力，对芙莉莲的成长产生了深远影响。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- 关于本站 -->
+                <div class="footer-column">
+                    <h3>关于本站</h3>
+                    <p>本站为《葬送的芙莉莲》粉丝非官方网站，致力于提供最新、最全的动漫资讯、角色介绍、精美图集等内容，欢迎所有喜欢《葬送的芙莉莲》的朋友们。</p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="characters.html">角色介绍</a></li>
+                        <li><a href="gallery.html">精美图集</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 毕业设计信息 -->
+                <div class="footer-column">
+                    <h3>毕业设计信息</h3>
+                    <p><strong>专业：</strong>计算机网络技术</p>
+                    <p><strong>设计者：</strong>喻德霞</p>
+                    <p><strong>指导老师：</strong>张坤</p>
+                    <p><strong>完成时间：</strong>2025年12月</p>
+                </div>
+            </div>
+            
+            <!-- 版权信息 -->
+            <div class="copyright">
+                <p>&copy; 2025 《葬送的芙莉莲》动漫介绍网站 | 本网站为毕业设计作品，仅供学习交流使用 | 所有动漫内容版权归原作者所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 图片懒加载
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.getAttribute('data-src');
+                            img.classList.add('loaded');
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px 0px', // 提前50px开始加载
+                    threshold: 0.1
+                });
+                
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // 不支持IntersectionObserver的备用方案
+                lazyImages.forEach(img => {
+                    img.src = img.getAttribute('data-src');
+                    img.classList.add('loaded');
+                    img.removeAttribute('data-src');
+                });
+            }
+        }
+        // 移动端导航菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                // 如果是导航链接，关闭移动端菜单
+                if (this.getAttribute('href') !== '#') {
+                    document.getElementById('nav-links').classList.remove('active');
+                }
+                
+                const href = this.getAttribute('href');
+                
+                // 如果href是#，表示当前页面，不滚动
+                if (href === '#') {
+                    e.preventDefault();
+                    return;
+                }
+                
+                // 检查是否是有效的id选择器
+                if (href.startsWith('#') && href.length > 1) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // 为角色卡片添加悬停效果
+        document.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            lazyLoadImages();
+        });
+    </script>
+</body>
+</html>
